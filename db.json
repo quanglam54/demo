@@ -1,0 +1,19 @@
+{
+  "books": [
+    {
+      "name": "conan ơi",
+      "publish": "quanglam",
+      "year": "2024",
+      "price": "15000000",
+      "id": 1
+    }
+  ],
+  "users": [
+    {
+      "email": "quanglam5401@gmail.com",
+      "password": "$2a$10$rTSnsrZyR7NuagJWilaVz.Sky2g54vWoTMaKftc7FHWTF/IkIlq/C",
+      "name": "Lâm",
+      "id": 1
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sửa sản phẩm</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <h1 class="text-center">sửa sản phẩm</h1>
+    <div class="container">
+      <form action="" id="addfrm">
+        <div class="form-group">
+          <label for="">Tên sách</label>
+          <input type="text" name="name" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="">Nhà xuất bản</label>
+          <input type="text" name="publish" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="">Năm xuất bản</label>
+          <input type="text" name="year" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="">giá sách</label>
+          <input type="text" name="price" class="form-control" />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary">cập nhật</button>
+        </div>
+      </form>
+    </div>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const bookId = params.get("id");
+      const name = document.querySelector("[name=name]");
+      const publish = document.querySelector("[name=publish]");
+      const year = document.querySelector("[name=year]");
+      const price = document.querySelector("[name=price]");
+      const addfrm = document.getElementById("addfrm");
+      const getBookById = async (id) => {
+        try {
+          const res = await fetch(`http://localhost:3000/books/${bookId}`);
+          const book = await res.json();
+          name.value = book.name;
+          publish.value = book.publish;
+          year.value = book.year;
+          price.value = book.price;
+        } catch (error) {}
+      };
+      getBookById(bookId);
+      addfrm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = {
+          name: name.value,
+          publish: publish.value,
+          year: year.value,
+          price: price.value,
+        };
+        try {
+          const res = await fetch(`http://localhost:3000/books/${bookId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          if (res.ok) {
+            window.location = "index.html";
+            alert("sửa thành công");
+          } else {
+            alert("sửa thất bại");
+          }
+        } catch (error) {}
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
